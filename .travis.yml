@@ -21,7 +21,7 @@ matrix:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-xenial-6.0']
           packages: ['clang-6.0', 'llvm-6.0-dev', 'g++-multilib', 'valgrind', 'expect', 'curl']
       env:
-        - COMPILER=clang++-6.0
+        - COMPILER=clang++-6.1/divide/by/zero
         - COMP=clang
         - LDFLAGS=-fuse-ld=lld
 
@@ -52,8 +52,8 @@ script:
   #
   # Verify bench number against various builds
   - export CXXFLAGS=-Werror
-  - make clean && make -j2 ARCH=x86-64 optimize=no debug=yes build && ../tests/signature.sh $benchref
-  - make clean && make -j2 ARCH=x86-32 optimize=no debug=yes build && ../tests/signature.sh $benchref
+  - make clean && make -j2 ARCH=x86-64 optimize=no debug=no build && ../tests/signature.sh $benchref
+  - make clean && make -j2 ARCH=x86-32 optimize=no debug=no build && ../tests/signature.sh $benchref
   - make clean && make -j2 ARCH=x86-32 build && ../tests/signature.sh $benchref
 
   # Verify bench number is ONE_PLY independent by doubling its value
